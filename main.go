@@ -13,7 +13,7 @@ type sizes struct {
 	height int
 }
 
-func initMatrix(w, h int) *[][]*Ship {
+func initMatrix(w, h int) [][]*Ship {
 	matrix := make([][]*Ship, w+1)
 	for x := 0; x < w+1; x++ {
 		matrix = append(matrix, make([]*Ship, h+1))
@@ -21,7 +21,7 @@ func initMatrix(w, h int) *[][]*Ship {
 			matrix[x] = append(matrix[x], nil)
 		}
 	}
-	return &matrix
+	return matrix
 }
 
 func cleanExit() {

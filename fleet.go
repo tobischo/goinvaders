@@ -41,7 +41,7 @@ func (fleet *Fleet) run() {
 }
 
 // Initialize a fleet of enemy ships
-func initFleet(size sizes, matrix *[][]*Ship) {
+func initFleet(size sizes, matrix [][]*Ship) {
 	fleet := Fleet{
 		ships:     make(map[*Ship]bool),
 		direction: -1,

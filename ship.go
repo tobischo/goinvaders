@@ -22,14 +22,14 @@ type Ship struct {
 	moveCh    chan int
 	fleet     *Fleet
 	size      *sizes
-	matrix    *[][]*Ship
+	matrix    [][]*Ship
 	control   bool
 	fg        termbox.Attribute
 	bg        termbox.Attribute
 }
 
 // Create the player controller ship
-func initShip(size sizes, matrix *[][]*Ship) Ship {
+func initShip(size sizes, matrix [][]*Ship) Ship {
 	return Ship{
 		view:      [][]rune{{'|'}, {'<', '=', '>'}},
 		positionX: size.width / 2,
@@ -45,7 +45,7 @@ func initShip(size sizes, matrix *[][]*Ship) Ship {
 }
 
 // Create a group of not moving ships which act as a barrier
-func initBarrier(size sizes, matrix *[][]*Ship) {
+func initBarrier(size sizes, matrix [][]*Ship) {
 	positions := []int{0, 1, 1, 1, 0}
 
 	for i := 3; i < size.width-4; i = i + 7 {
@@ -155,7 +155,7 @@ func (ship *Ship) fire() {
 func (ship *Ship) fireFromFleet() {
 	r := rand.Intn(100)
 	if r < 5 && ship.positionY+6 < ship.size.height {
-		matrix := *ship.matrix
+		matrix := ship.matrix
 		ship_3 := matrix[ship.positionX][ship.positionY+2]
 		ship_6 := matrix[ship.positionX][ship.positionY+5]
 		if !((ship_3 != nil && ship_3.fleet != nil) ||
@@ -168,7 +168,7 @@ func (ship *Ship) fireFromFleet() {
 // Draw the ship and set the reference in the collision matrix
 func (ship *Ship) draw() {
 	rows := len(ship.view)
-	matrix := *ship.matrix
+	matrix := ship.matrix
 
 	for r, row := range ship.view {
 		width := len(row) / 2
@@ -188,7 +188,7 @@ func (ship *Ship) draw() {
 // the collision matrix
 func (ship *Ship) clear() {
 	rows := len(ship.view)
-	matrix := *ship.matrix
+	matrix := ship.matrix
 
 	for r, row := range ship.view {
 		width := len(row) / 2

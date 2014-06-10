@@ -48,10 +48,9 @@ func (shot *Shot) draw() {
 }
 
 func (shot *Shot) detectCollision() {
-	matrix := *shot.ship.matrix
 	// Avoid checking if the shot has reached the top corner
 	if shot.positionY >= 0 {
-		ship := matrix[shot.positionX][shot.positionY]
+		ship := shot.ship.matrix[shot.positionX][shot.positionY]
 		// Check if there is a ship (which did not fire the shot)
 		if ship != nil && ship != shot.ship {
 			// Check for player controlled ship
